@@ -23,6 +23,7 @@
 import config as cf
 import sys
 import controller
+import time
 from DISClib.ADT import list as lt
 assert cf
 
@@ -37,9 +38,22 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Consultar los videos de una categoría más vistos en un país")
+    print("3- Conocer el video que más días ha sido trending en un país")
+    print("4- Averiguar el video que más días ha sido trending en una categoría")
+    print("5- Consultar los n videos con un tag específico que más likes han tenido en un país")
 
-catalog = None
+def initCatalog():
+    """
+    Inicializa el catalogo de videos
+    """
+    return controller.initCatalog()
+
+def loadData(catalog):
+    """
+    Carga los videos en la estructura de datos
+    """
+    controller.loadData(catalog)
 
 """
 Menu principal
@@ -49,6 +63,18 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        t1 = time.time_ns()
+        catalog = initCatalog()
+        loadData(catalog)
+        t2 = time.time_ns()
+        print('El tiempo de carga fue de ' , ((t2-t1)/1000000))
+        print('Videos cargados: ' + str(lt.size(catalog['Videos'])))
+        print('Paises cargados: ' + str(lt.size(catalog['Country'])))
+        '''
+        print('Géneros cargados: ' + str(lt.size(catalog['tags'])))
+        print('Asociación de Géneros a Libros cargados: ' +
+              str(lt.size(catalog['book_tags'])))
+        '''
 
     elif int(inputs[0]) == 2:
         pass

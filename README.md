@@ -16,3 +16,10 @@ Este directorio contiene todo el código de base que se entrega para el funciona
 -Test
 Este directorio contiene las pruebas realizadas a los TADs, Estructuras de Datos y Algoritmos.
 
+Req 1 y 3: Julián Ricardo Villate Torres
+Código: 202020509
+Correo: j.villatet@uniandes.edu.co
+
+Req 2 y 4: Sergio Pardo Gutiérrez
+Código: 202025720
+Correo: s.pardog@uniandes.edu.co
