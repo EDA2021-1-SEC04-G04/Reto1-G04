@@ -20,6 +20,6 @@ Req 1 y 3: Julián Ricardo Villate Torres
 Código: 202020509
 Correo: j.villatet@uniandes.edu.co
 
-Req 2 y 4: Sergio Pardo Gutiérrez
+Carga de Datos, Req 2 y 4: Sergio Pardo Gutiérrez
 Código: 202025720
 Correo: s.pardog@uniandes.edu.co
