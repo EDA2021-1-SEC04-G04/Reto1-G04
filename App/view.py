@@ -42,6 +42,7 @@ def printMenu():
     print("3- Conocer el video que más días ha sido trending en un país")
     print("4- Averiguar el video que más días ha sido trending en una categoría")
     print("5- Consultar los n videos con un tag específico que más likes han tenido en un país")
+    print("0- Salir")
 
 def initCatalog():
     """
@@ -55,12 +56,16 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
+def imprimir_primer_elemento(catalog):
+    elementos_pais = catalog['elements'][0]['videos']['elements'][0]
+    print(elementos_pais)
+
 """
 Menu principal
 """
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
+    inputs = input('Selecci1one una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         t1 = time.time_ns()
@@ -70,14 +75,12 @@ while True:
         print('El tiempo de carga fue de ' , ((t2-t1)/1000000))
         print('Videos cargados: ' + str(lt.size(catalog['Videos'])))
         print('Paises cargados: ' + str(lt.size(catalog['Country'])))
-        '''
-        print('Géneros cargados: ' + str(lt.size(catalog['tags'])))
-        print('Asociación de Géneros a Libros cargados: ' +
-              str(lt.size(catalog['book_tags'])))
-        '''
+        print('Categorias cargadas: ' + str(lt.size(catalog['Categories'])))
+        print('Asociación de Categorías a Videos cargados: ' +
+              str(lt.size(catalog['Videos'])))
 
     elif int(inputs[0]) == 2:
-        pass
+        imprimir_primer_elemento(catalog['Country'])
 
     else:
         sys.exit(0)
