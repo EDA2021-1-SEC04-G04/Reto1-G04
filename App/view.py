@@ -56,9 +56,9 @@ def loadData(catalog):
     """
     controller.loadData(catalog)
 
-def imprimir_primer_elemento(catalog):
-    elementos_pais = catalog['elements'][0]['videos']['elements'][0]
-    print(elementos_pais)
+#def imprimir_primer_elemento(catalog):
+#    elementos_pais = catalog['elements'][0]['videos']['elements'][0]
+ #   print(elementos_pais)
 
 """
 Menu principal
@@ -74,7 +74,6 @@ while True:
         t2 = time.time_ns()
         print('El tiempo de carga fue de ' , ((t2-t1)/1000000))
         print('Videos cargados: ' + str(lt.size(catalog['Videos'])))
-        print('Paises cargados: ' + str(lt.size(catalog['Country'])))
         print('Categorias cargadas: ' + str(lt.size(catalog['Categories'])))
         print('Asociación de Categorías a Videos cargados: ' +
               str(lt.size(catalog['Videos'])))

@@ -46,8 +46,22 @@ def loadData(catalog):
     estructura de datos
     """
     loadCategories(catalog)
+    print(catalog)
     loadVideos(catalog)
     #sortVideos(catalog)
+
+
+
+def loadCategories(catalog):
+    """
+    Carga todos los tags del archivo y los agrega a la lista de tags
+    """
+    categoryfile = cf.data_dir + 'category-id.csv'
+    input_file = csv.DictReader(open(categoryfile, encoding='utf-8'),delimiter = '\t')
+    for category in input_file:
+        model.addCategory(catalog, category)
+    return catalog
+
 
 def loadVideos(catalog):
     """
@@ -58,18 +72,13 @@ def loadVideos(catalog):
     videosfile = cf.data_dir + 'videos-small.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
-        model.addVideo(catalog, video)
+        model.addVideo(catalog, video, catalog['Categories'])
 
-def loadCategories(catalog):
-    """
-    Carga todos los tags del archivo y los agrega a la lista de tags
-    """
-    categoryfile = cf.data_dir + 'category-id.csv'
-    input_file = csv.DictReader(open(categoryfile, encoding='utf-8'))
-    for category in input_file:
-        model.addCategory(catalog, category)
+
 
 # Funciones de ordenamiento
 
 
 # Funciones de consulta sobre el catálogo
+catalogo = initCatalog()
+print(loadCategories(catalogo))
