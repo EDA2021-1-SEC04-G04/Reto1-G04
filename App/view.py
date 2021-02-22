@@ -35,6 +35,7 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+catalog = None
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -75,7 +76,11 @@ while True:
               str(lt.size(catalog['Videos'])))
 
     elif int(inputs[0]) == 2:
-        x = float(input("Seleccione el tamaño de la muestra"))
+        x = float(input("Seleccione el tamaño de la muestra: "))
+        print("\nSeleccione el tipo de ordenamiento:\n-1 para insertion\n-2 para selection\n-3 para shellshort\n")
+        z = float(input("Ingrese su eleccion: "))
+        lista_videos = controller.Videosxviews(catalog,x,z)
+        print(lista_videos[0])
 
     else:
         sys.exit(0)

@@ -24,10 +24,12 @@
  * Dario Correal - Version inicial
  """
 
-
+import time
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import insertionsort as nsr
+from DISClib.Algorithms.Sorting import selectionsort as stn
+from DISClib.Algorithms.Sorting import shellsort as shr
 assert cf
 
 """
@@ -131,4 +133,13 @@ def comparetagnames(name, tag):
 def sortVideos(catalogo, size, ordenamiento):
     sub_list = lt.subList(catalogo['Videos'],0,size)
     sub_list = sub_list.copy()
-    
+    start_time = time.process_time()
+    if ordenamiento == 1:
+        sortedlist = nsr.sort(sub_list, cmpVideosByViews)
+    elif ordenamiento == 2:
+        sortedlist = stn.selectionsort.sort(sub_list, cmpVideosByViews)
+    elif ordenamiento == 3:
+        sortedlist = shr.shellsort.sort(sub_list, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sortedlist

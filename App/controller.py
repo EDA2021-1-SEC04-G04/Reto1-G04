@@ -82,6 +82,9 @@ def loadVideos(catalog):
 
 # Funciones de ordenamiento
 
+def Videosxviews(catalog, ordenamiento, tamaño):
+
+    return model.sortVideos(catalog, ordenamiento, tamaño)
 
 # Funciones de consulta sobre el catálogo
 # catalogo = initCatalog()
