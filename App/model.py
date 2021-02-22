@@ -84,7 +84,7 @@ def addVideoCategory(video, categories):
         # nombre = lt.getElement(categories,posicion-1)
     #se añade la categoria como un campo adicional en video
         # video['Categoria'] = nombre['name']
-
+    return None
     
 
 # Funciones para creacion de datos
@@ -137,9 +137,9 @@ def sortVideos(catalogo, size, ordenamiento):
     if ordenamiento == 1:
         sortedlist = nsr.sort(sub_list, cmpVideosByViews)
     elif ordenamiento == 2:
-        sortedlist = stn.selectionsort.sort(sub_list, cmpVideosByViews)
+        sortedlist = stn.sort(sub_list, cmpVideosByViews)
     elif ordenamiento == 3:
-        sortedlist = shr.shellsort.sort(sub_list, cmpVideosByViews)
+        sortedlist = shr.sort(sub_list, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sortedlist
