@@ -31,11 +31,15 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de videos
 
-def initCatalog():
+def initCatalog(tipo: str):
+    if tipo == 1:
+        x = "ARRAY_LIST"
+    else:
+        x = "LINKED_LIST"
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(x)
     return catalog
 
 # Funciones para la carga de datos
@@ -80,5 +84,5 @@ def loadVideos(catalog):
 
 
 # Funciones de consulta sobre el catálogo
-catalogo = initCatalog()
-print(loadCategories(catalogo))
+# catalogo = initCatalog()
+# print(loadCategories(catalogo))

@@ -44,11 +44,6 @@ def printMenu():
     print("5- Consultar los n videos con un tag específico que más likes han tenido en un país")
     print("0- Salir")
 
-def initCatalog():
-    """
-    Inicializa el catalogo de videos
-    """
-    return controller.initCatalog()
 
 def loadData(catalog):
     """
@@ -68,8 +63,9 @@ while True:
     inputs = input('Selecci1one una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        tipo = int(input("Ingrese 1 si desea una lista encadenada o cualquier otro caracter para un arreglo: "))
         t1 = time.time_ns()
-        catalog = initCatalog()
+        catalog = controller.initCatalog(tipo)
         loadData(catalog)
         t2 = time.time_ns()
         print('El tiempo de carga fue de ' , ((t2-t1)/1000000))
@@ -79,7 +75,7 @@ while True:
               str(lt.size(catalog['Videos'])))
 
     elif int(inputs[0]) == 2:
-        imprimir_primer_elemento(catalog['Country'])
+        x = float(input("Seleccione el tamaño de la muestra"))
 
     else:
         sys.exit(0)

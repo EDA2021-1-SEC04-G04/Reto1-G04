@@ -37,7 +37,7 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def newCatalog(tipo: str):
     """
     Inicializa el catálogo de videos. Crea una lista vacia para guardar
     todos los videos, adicionalmente, crea una lista vacia para los paises,
@@ -46,7 +46,7 @@ def newCatalog():
     """
     catalog = {'Videos': None,
                'Categories': None,
-               'Videos_Categories': None}
+               }
 
     catalog['Videos'] = lt.newList()
     catalog['Categories'] = lt.newList()
@@ -66,7 +66,7 @@ def addCategory(catalog, category):
 
 def addVideo(catalog, video,categories):
 
-    addVideoCategory(video, categories)
+    # addVideoCategory(video, categories)
     # Se adiciona el video a la lista de videos y se le agrega su categoria correspondiente
     lt.addLast(catalog['Videos'],video)
 
@@ -77,10 +77,11 @@ def addVideoCategory(video, categories):
     """
     Cambia la categoria del libro con la correspondiente
     """
-    posicion = int(video['category_id'])
-    nombre = lt.getElement(categories,posicion)
+    # posicion = int(video['category_id'])
+    # if posicion < 45:
+        # nombre = lt.getElement(categories,posicion-1)
     #se añade la categoria como un campo adicional en video
-    video['Categoria'] = nombre['name']
+        # video['Categoria'] = nombre['name']
 
     
 
@@ -115,8 +116,11 @@ def comparecountries(countryname1, country):
         return 0
     return -1
     
-def compareratings(book1, book2):
-    return (float(book1['average_rating']) > float(book2['average_rating']))
+def cmpVideosByViews(video1, video2):
+    if video1['views'] < video2['views']:
+        return True
+    else:
+        return False
 
 
 def comparetagnames(name, tag):
@@ -124,3 +128,7 @@ def comparetagnames(name, tag):
 
 # Funciones de ordenamiento
 
+def sortVideos(catalogo, size, ordenamiento):
+    sub_list = lt.subList(catalogo['Videos'],0,size)
+    sub_list = sub_list.copy()
+    
