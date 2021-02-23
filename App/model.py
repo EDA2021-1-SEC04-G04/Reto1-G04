@@ -50,8 +50,8 @@ def newCatalog(tipo: str):
                'Categories': None,
                }
 
-    catalog['Videos'] = lt.newList()
-    catalog['Categories'] = lt.newList()
+    catalog['Videos'] = lt.newList(tipo)
+    catalog['Categories'] = lt.newList(tipo)
     return catalog
 
 # Funciones para agregar informacion al catalogo
