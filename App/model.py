@@ -24,10 +24,12 @@
  * Dario Correal - Version inicial
  """
 
-
+import time
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import insertionsort as nsr
+from DISClib.Algorithms.Sorting import selectionsort as stn
+from DISClib.Algorithms.Sorting import shellsort as shr
 assert cf
 
 """
@@ -37,7 +39,7 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def newCatalog(tipo: str):
     """
     Inicializa el catálogo de videos. Crea una lista vacia para guardar
     todos los videos, adicionalmente, crea una lista vacia para los paises,
@@ -45,73 +47,45 @@ def newCatalog():
     generos y libros. Retorna el catalogo inicializado.
     """
     catalog = {'Videos': None,
-               'Country': None,
                'Categories': None,
-               'Videos_Categories': None}
+               }
 
-    catalog['Videos'] = lt.newList()
-    catalog['Country'] = lt.newList('ARRAY_LIST',
-                                    cmpfunction=comparecountries)
-    catalog['Categories'] = lt.newList('ARRAY_LIST',
-                                 cmpfunction=comparetagnames)
-    catalog['Video_Categories'] = lt.newList('ARRAY_LIST')
+    catalog['Videos'] = lt.newList(tipo)
+    catalog['Categories'] = lt.newList(tipo)
     return catalog
 
 # Funciones para agregar informacion al catalogo
 
-def addVideo(catalog, video):
-    # Se adiciona el video a la lista de videos y se le agrega su categoria correspondiente
-    categories = catalog['Categories']
-    category = addVideoCategory(video['category_id'],categories['elements'])
-    video['category'] = category
-    lt.addLast(catalog['Videos'], video)
-    # Se obtienen el canal del video
-    countries = video['country'].split(",")
-    # Cada canal, se crea en la lista de videos del catalogo, y se
-    # crea un video en la lista de dicho canal (apuntador al video)
-    for country in countries:
-        addVideoCountry(catalog, country.strip(), video)
-        
-def addVideoCountry(catalog, country, video):
-    """
-    Adiciona un país a lista de países, la cual guarda referencias
-    a los videos de dicho país
-    """
-    countries = catalog['Country']
-    poscountry = lt.isPresent(countries, country)
-    if poscountry > 0:
-        country = lt.getElement(countries, poscountry)
-    else:
-        country = newCountry(country)
-        lt.addLast(countries, country)
-    lt.addLast(country['videos'], video)
+
 
 def addCategory(catalog, category):
     """
     Adiciona una cateogría a la lista de categorías
     """
-    for valor in category:
-        cont = 0
-        while cont <1:
-            cat = category['id\tname'].split("\t",1)
-            cont +=1
-        t = newCategory(cat[1], int(cat[0]))
-    lt.addLast(catalog['Categories'], t)
+    lt.addLast(catalog['Categories'],category)
 
-def addVideoCategory(category_id, categories):
+
+
+def addVideo(catalog, video,categories):
+
+    # addVideoCategory(video, categories)
+    # Se adiciona el video a la lista de videos y se le agrega su categoria correspondiente
+    lt.addLast(catalog['Videos'],video)
+
+        
+    
+
+def addVideoCategory(video, categories):
     """
     Cambia la categoria del libro con la correspondiente
     """
-    new_category = None
-    found = False
-    ticker = 0
-    while found == False and ticker <len(categories):
-        for ide in categories[ticker]:
-            if ide == int(category_id):
-                new_category = categories[ticker][ide]
-                found == True
-        ticker +=1
-    return new_category
+    # posicion = int(video['category_id'])
+    # if posicion < 45:
+        # nombre = lt.getElement(categories,posicion-1)
+    #se añade la categoria como un campo adicional en video
+        # video['Categoria'] = nombre['name']
+    return None
+    
 
 # Funciones para creacion de datos
 
@@ -144,8 +118,11 @@ def comparecountries(countryname1, country):
         return 0
     return -1
     
-def compareratings(book1, book2):
-    return (float(book1['average_rating']) > float(book2['average_rating']))
+def cmpVideosByViews(video1, video2):
+    if video1['views'] < video2['views']:
+        return True
+    else:
+        return False
 
 
 def comparetagnames(name, tag):
@@ -153,3 +130,16 @@ def comparetagnames(name, tag):
 
 # Funciones de ordenamiento
 
+def sortVideos(catalogo, size, ordenamiento):
+    sub_list = lt.subList(catalogo['Videos'],0,size)
+    sub_list = sub_list.copy()
+    start_time = time.process_time()
+    if ordenamiento == 1:
+        sortedlist = nsr.sort(sub_list, cmpVideosByViews)
+    elif ordenamiento == 2:
+        sortedlist = stn.sort(sub_list, cmpVideosByViews)
+    elif ordenamiento == 3:
+        sortedlist = shr.sort(sub_list, cmpVideosByViews)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sortedlist

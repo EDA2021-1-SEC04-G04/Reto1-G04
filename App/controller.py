@@ -31,11 +31,15 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de videos
 
-def initCatalog():
+def initCatalog(tipo: str):
+    if tipo == 1:
+        x = "ARRAY_LIST"
+    else:
+        x = "LINKED_LIST"
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(x)
     return catalog
 
 # Funciones para la carga de datos
@@ -46,8 +50,22 @@ def loadData(catalog):
     estructura de datos
     """
     loadCategories(catalog)
+    print(catalog)
     loadVideos(catalog)
     #sortVideos(catalog)
+
+
+
+def loadCategories(catalog):
+    """
+    Carga todos los tags del archivo y los agrega a la lista de tags
+    """
+    categoryfile = cf.data_dir + 'category-id.csv'
+    input_file = csv.DictReader(open(categoryfile, encoding='utf-8'),delimiter = '\t')
+    for category in input_file:
+        model.addCategory(catalog, category)
+    return catalog
+
 
 def loadVideos(catalog):
     """
@@ -55,21 +73,19 @@ def loadVideos(catalog):
     cada uno de ellos, se crea en la lista de canales, a dicho canal y una
     referencia al video que se esta procesando.
     """
-    videosfile = cf.data_dir + 'videos-small.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
-        model.addVideo(catalog, video)
+        model.addVideo(catalog, video, catalog['Categories'])
 
-def loadCategories(catalog):
-    """
-    Carga todos los tags del archivo y los agrega a la lista de tags
-    """
-    categoryfile = cf.data_dir + 'category-id.csv'
-    input_file = csv.DictReader(open(categoryfile, encoding='utf-8'))
-    for category in input_file:
-        model.addCategory(catalog, category)
+
 
 # Funciones de ordenamiento
 
+def Videosxviews(catalog, ordenamiento, tamaño):
+
+    return model.sortVideos(catalog, ordenamiento, tamaño)
 
 # Funciones de consulta sobre el catálogo
+# catalogo = initCatalog()
+# print(loadCategories(catalogo))
