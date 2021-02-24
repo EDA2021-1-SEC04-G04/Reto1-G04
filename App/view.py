@@ -64,7 +64,7 @@ while True:
     inputs = input('Selecci1one una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-        tipo = int(input("Ingrese 1 si desea una lista encadenada o cualquier otro caracter para un arreglo: "))
+        tipo = int(input("Ingrese 1 si desea un arreglo o cualquier otro caracter para una lista encadenada: "))
         t1 = time.time_ns()
         catalog = controller.initCatalog(tipo)
         loadData(catalog)
