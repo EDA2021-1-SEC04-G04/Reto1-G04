@@ -113,16 +113,24 @@ def newCategory(name, id):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
-def comparecountries(countryname1, country):
-    if (countryname1.lower() in country['name'].lower()):
+def compareVideos(video1, video2):
+    if video2 > video1:
+        return 1
+    elif video2 == video1:
         return 0
-    return -1
+    elif video2 < video1:
+        return -1
     
 def cmpVideosByViews(video1, video2):
     if video1['views'] < video2['views']:
         return True
     else:
         return False
+
+
+
+
+
 
 
 def comparetagnames(name, tag):
@@ -143,3 +151,11 @@ def sortVideos(catalogo, size, ordenamiento):
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sortedlist
+
+
+
+
+
+
+
+    
