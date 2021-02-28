@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import insertionsort as nsr
 from DISClib.Algorithms.Sorting import selectionsort as stn
 from DISClib.Algorithms.Sorting import shellsort as shr
+from DISClib.Algorithms.Sorting import quicksort as qst
+from DISClib.Algorithms.Sorting import mergeshort as mst
 assert cf
 
 """
@@ -148,6 +150,10 @@ def sortVideos(catalogo, size, ordenamiento):
         sortedlist = stn.sort(sub_list, cmpVideosByViews)
     elif ordenamiento == 3:
         sortedlist = shr.sort(sub_list, cmpVideosByViews)
+    elif ordenamiento == 4:
+        sortedlist = qst.sort(sub_list, cmpVideosByViews)
+    elif ordenamiento == 5:
+        sortedlist = mst.sort(sub_list, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sortedlist

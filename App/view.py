@@ -77,7 +77,7 @@ while True:
 
     elif int(inputs[0]) == 2:
         x = float(input("Seleccione el tamaño de la muestra: "))
-        print("\nSeleccione el tipo de ordenamiento:\n-1 para insertion\n-2 para selection\n-3 para shellshort\n")
+        print("\nSeleccione el tipo de ordenamiento:\n-1 para insertion\n-2 para selection\n-3 para shellshort\n-4 para quickshort\n-5 para mergeshort")
         z = float(input("Ingrese su eleccion: "))
         lista_videos = controller.Videosxviews(catalog,x,z)
         print(lista_videos[0])
