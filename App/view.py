@@ -27,7 +27,8 @@ import time
 from DISClib.ADT import list as lt
 assert cf
 
-
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
@@ -46,11 +47,11 @@ def printMenu():
     print("0- Salir")
 
 
-def loadData(catalog):
+def loadData(catalog,tipo):
     """
     Carga los videos en la estructura de datos
     """
-    controller.loadData(catalog)
+    controller.loadData(catalog,tipo)
 
 #def imprimir_primer_elemento(catalog):
 #    elementos_pais = catalog['elements'][0]['videos']['elements'][0]
@@ -67,7 +68,7 @@ while True:
         tipo = int(input("Ingrese 1 si desea un arreglo o cualquier otro caracter para una lista encadenada: "))
         t1 = time.time_ns()
         catalog = controller.initCatalog(tipo)
-        loadData(catalog)
+        loadData(catalog,tipo)
         t2 = time.time_ns()
         print('El tiempo de carga fue de ' , ((t2-t1)/1000000))
         print('Videos cargados: ' + str(lt.size(catalog['Videos'])))
@@ -76,12 +77,11 @@ while True:
               str(lt.size(catalog['Videos'])))
 
     elif int(inputs[0]) == 2:
-        x = float(input("Seleccione el tamaño de la muestra: "))
+        size = int(input("Seleccione el tamaño de la muestra: "))
         print("\nSeleccione el tipo de ordenamiento:\n-1 para insertion\n-2 para selection\n-3 para shellshort\n-4 para quickshort\n-5 para mergeshort")
-        z = float(input("Ingrese su eleccion: "))
-        lista_videos = controller.Videosxviews(catalog,x,z)
+        sort = int(input("Ingrese su eleccion: "))
+        lista_videos = controller.Videosxviews(catalog,sort,size)
         print(lista_videos[0])
-
     else:
         sys.exit(0)
 sys.exit(0)
