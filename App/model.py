@@ -52,13 +52,11 @@ def newCatalog(tipo: str):
                'Categories': None,
                }
 
-    catalog['Videos'] = lt.newList(tipo)
+    catalog['Videos'] = lt.newList(tipo, cmpfunction = compareVideos)
     catalog['Categories'] = lt.newList(tipo)
     return catalog
 
 # Funciones para agregar informacion al catalogo
-
-
 
 def addCategory(catalog, category):
     """
@@ -66,52 +64,83 @@ def addCategory(catalog, category):
     """
     lt.addLast(catalog['Categories'],category)
 
-
-
-def addVideo(catalog, video,categories):
-
-    # addVideoCategory(video, categories)
+def addVideo(catalog, video,typ):
     # Se adiciona el video a la lista de videos y se le agrega su categoria correspondiente
+    categories = catalog['Categories']
+    category = addVideoCategory(video['category_id'],categories)
+    video['category'] = category
     lt.addLast(catalog['Videos'],video)
 
-        
-    
-
-def addVideoCategory(video, categories):
+def addVideoCategory(category_id, categories):
     """
     Cambia la categoria del libro con la correspondiente
     """
-    # posicion = int(video['category_id'])
-    # if posicion < 45:
-        # nombre = lt.getElement(categories,posicion-1)
-    #se añade la categoria como un campo adicional en video
-        # video['Categoria'] = nombre['name']
-    return None
-    
+    new_category = None
+    found = False
+    ticker = 0
+    while found == False and ticker <len(categories):
+        for pos in range(0,lt.size(categories)):
+            if lt.getElement(categories,pos)['id'] == category_id:
+                new_category = lt.getElement(categories,pos)['name']
+                found == True
+        ticker +=1
+    return new_category
 
 # Funciones para creacion de datos
-
-
-def newCountry(name):
-    """
-    Crea una nueva estructura para modelar los videos de
-    un pais y su promedio de ratings
-    """
-    country = {'name': "", "videos": None}
-    country['name'] = name
-    country['videos'] = lt.newList('ARRAY_LIST')
-    return country
-
-
-def newCategory(name, id):
-    """
-    Esta estructura almancena los tags utilizados para marcar libros.
-    """
-    category = {}
-    category[id] = name
-    return category
-
+    
 # Funciones de consulta
+
+def look_for_country(videos,country):
+    """
+    Busca todos los videos que coincidan con un país enviado por parámetro
+    y devuelve una lista con todos ellos
+    """
+    pos = 0
+    countries = lt.newList('ARRAY_LIST')
+    while pos < lt.size(videos):
+        video = lt.getElement(videos,pos)
+        if video['country'].lower() == country:
+            lt.addLast(countries,video)
+        pos +=1
+    return countries
+
+def look_for_category(videos,category):
+    """
+    Busca todos los videos que coincidan con una categoría enviada por parámetro
+    y retorna una lista con todos ellos
+    """
+    pos = 0
+    category = " " + category
+    categories = lt.newList('ARRAY_LIST')
+    while pos < lt.size(videos):
+        video = lt.getElement(videos,pos)
+        if video['category'].lower() == category:
+            lt.addLast(categories,video)
+        pos +=1
+    return categories
+
+def look_for_most_trending(categories):
+    """
+    Busca el video con más días siendo trending y lo retorna
+    """
+    #falta
+    pass
+
+def look_for_tags(countries,tag):
+    """
+    Filtra todos los videos con un tag específico, los agrega a 
+    una lista y retorna la misma
+    """
+    pos = 0
+    tag = '"' + tag + '"'
+    vid_tags = lt.newList('ARRAY_LIST')
+    while pos < lt.size(countries):
+        video = lt.getElement(countries,pos)
+        tags = video['tags'].split("|")
+        if tag in tags:
+            lt.addLast(vid_tags,video)
+        pos +=1
+    return vid_tags
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -129,37 +158,51 @@ def cmpVideosByViews(video1, video2):
     else:
         return False
 
+def compareCountries(country1, country2):
+    if country1 > country2:
+        return 1
+    elif country1 == country2:
+        return 0
+    else:
+        return -1
 
-
-
-
-
-
-def comparetagnames(name, tag):
-    return (name == tag['name'])
+def cmpByLikes(Video1,Video2):
+    if Video1['likes'] < Video2['likes']:
+        return True
+    else:
+        return False
 
 # Funciones de ordenamiento
 
-def sortVideos(catalogo, size, ordenamiento):
-    sub_list = lt.subList(catalogo['Videos'],0,size)
-    sub_list = sub_list.copy()
+def sortVideosbyViews(catalog, ordenamiento, size):
+    """
+    Organiza todos los videos de una lista por número de views 
+    y retorna una nueva lista organizada
+    """
+    sortedlist = lt.subList(catalog,1,size)
     start_time = time.process_time()
     if ordenamiento == 1:
-        sortedlist = nsr.sort(sub_list, cmpVideosByViews)
+        nsr.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 2:
-        sortedlist = stn.sort(sub_list, cmpVideosByViews)
+        stn.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 3:
-        sortedlist = shr.sort(sub_list, cmpVideosByViews)
+        shr.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 4:
-        sortedlist = qst.sort(sub_list, cmpVideosByViews)
+        qst.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 5:
-        sortedlist = mst.sort(sub_list, cmpVideosByViews)
+        mst.sort(sortedlist, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
     return elapsed_time_mseg, sortedlist
 
-
-
+def sort_videos_by_likes(catalog):
+    """
+    Organiza todos los videos de una lista por número de likes
+    y retorna una nueva lista organizada
+    """
+    sorted_list = lt.subList(catalog,1,lt.size(catalog))
+    mst.sort(sorted_list,cmpByLikes)
+    return sorted_list
 
 
 
