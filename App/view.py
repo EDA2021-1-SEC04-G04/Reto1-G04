@@ -47,12 +47,15 @@ def printMenu():
     print("5- Consultar los n videos con un tag específico que más likes han tenido en un país")
     print("0- Salir")
 
+#Funciones de carga
 
 def loadData(catalog,tipo):
     """
     Carga los videos en la estructura de datos
     """
     controller.loadData(catalog,tipo)
+
+#Funciones de requerimiento
 
 def views_country_category(catalog,country,num_countries,category,sort):
     """
@@ -94,6 +97,37 @@ def likes_country_tag(num_videos,country,tag,catalog_videos):
     tags = controller.look_for_tags(countries,tag)
     tags_by_likes = controller.videos_by_likes(tags)
     print_video_tags(tags_by_likes,num_videos,country,tag)
+
+#Funciones de impresion
+
+def print_first_element(videos):
+    size = lt.size(videos)
+    if size:
+        primera_linea = "{0:^13}{1:^100}{2:^25}{3:^25}{4:^15}{5:^10}{6:^10}".format('Trending Date','Title','Channel Title','Publish Time','Views','Likes','Dislikes')
+        print(primera_linea)
+        i = 1
+        while i < 2:
+            video = lt.getElement(videos,i)
+            t_date = video['trending_date']
+            title = video['title']
+            ch_title = video['channel_title']
+            pub_time = video['publish_time']
+            views = video['views']
+            likes = video['likes']
+            dislikes = video['dislikes']
+            info_video = "{0:^13}{1:^100}{2:^25}{3:^25}{4:^15}{5:^10}{6:^10}".format(t_date, title, ch_title, pub_time, views, likes, dislikes)
+            print(info_video)
+            i+=1
+
+def print_categories(categorias):
+    """
+    Imrpime las categorias con su respectivo id
+    """
+    size = lt.size(categorias)
+    for i in range(0,size):
+        ide = lt.getElement(categorias,i)['id']
+        categoria = lt.getElement(categorias,i)['name']
+        print(ide + ': ' +categoria)
 
 def printVideosMostViews(videos,country,num_countries,category):
     """
@@ -194,7 +228,11 @@ while True:
         print('Categorias cargadas: ' + str(lt.size(catalog['Categories'])))
         print('Asociación de Categorías a Videos cargados: ' +
               str(lt.size(catalog['Videos'])))
-
+        print("El primer video cargado fue: ")
+        print_first_element(catalog['Videos'])
+        print('Las categorias cargadas fueron:')
+        print_categories(catalog['Categories'])      
+        
     elif int(inputs[0]) == 2:
         num_countries = int(input("Escriba en numeros la cantidad de videos que desea consultar: "))
         country = input("Escriba el país sobre el que desea hacer la consulta: ").lower()
