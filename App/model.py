@@ -119,12 +119,22 @@ def look_for_category(videos,category):
         pos +=1
     return categories
 
-def look_for_most_trending(categories):
-    """
-    Busca el video con más días siendo trending y lo retorna
-    """
-    #falta
-    pass
+def look_for_most_trending(videos):
+    sublist = {}
+    masvistas = 0
+    videomasvisto  = None
+    for x in range(0,lt.size(videos)):
+        video = lt.getElement(videos,x)
+        if video['video id'] in sublist:
+            sublist[video['video id']] += 1
+            if sublist[video['video id']] > masvistas:
+                masvistas = sublist[video['video id']]
+                videomasvisto = video
+        else:
+            sublist[video['video id']] = 1
+
+       
+    return videomasvisto
 
 def look_for_tags(countries,tag):
     """
@@ -169,12 +179,14 @@ def cmpByLikes(Video1,Video2):
 
 # Funciones de ordenamiento
 
-def sortVideosbyViews(catalog,ordenamiento,size):
+def sortVideosbyViews(catalog, ordenamiento, size):
     """
     Organiza todos los videos de una lista por número de views 
     y retorna una nueva lista organizada
     """
     sortedlist = lt.subList(catalog, 0, size)
+    sortedlist = sortedlist.copy()
+    start_time = time.process_time()
     if ordenamiento == 1:
         sublist = nsr.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 2:
@@ -193,6 +205,7 @@ def sort_videos_by_likes(catalog):
     y retorna una nueva lista organizada
     """
     sorted_list = lt.subList(catalog,1,lt.size(catalog))
+    sorted_list = sorted_list.copy()
     sublist = mst.sort(sorted_list,cmpByLikes)
     return sublist
 

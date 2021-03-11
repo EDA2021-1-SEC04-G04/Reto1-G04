@@ -88,8 +88,8 @@ def videos_by_views(catalog,sort,size)->list:
     """
     Organiza la lista por número de views
     """
-    catalog_videos = catalog['Videos']
-    return model.sortVideosbyViews(catalog_videos,sort,size)
+    catalog_videos = catalog
+    return model.sortVideosbyViews(catalog,sort,size)
 
 def videos_by_likes(catalog)->list:
     """

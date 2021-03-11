@@ -71,9 +71,9 @@ def trending_country(catalog, country):
     Cumple el requerimiento número 2 del reto buscando el video
     con más tiempo trending en un país. Imprime este mismo.
     """
-    countries = controller.look_for_country(catalog,category)
+    countries = controller.look_for_country(catalog,country)
     most_trending = controller.look_for_most_trending(countries)
-    print_most_trending_categories(most_trending, category)
+    print_most_trending_categories(most_trending, country)
 
 def trending_category(catalog, category):
     """
