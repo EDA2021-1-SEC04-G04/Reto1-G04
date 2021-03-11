@@ -124,38 +124,34 @@ def print_most_trending_country(most_trending, category):
     Imprime el video más trending en un país específico. Muestra además su título, el canal
     que lo publicó, el país donde fue publicado y el número de días que ha sido trending
     """
-    size = lt.size(most_trending)
-    if size:
-        print('El video mas trending en la categoria ' + category.title() + ":")
-        primera_linea = "{0:^100}{1:^25}{2:^15}{3:^15}".format('Title','Channel Title','Pais','Numero de dias')
-        print(primera_linea)
-        i = 0
-        video = lt.getElement(most_trending,i)
-        title = video['title']
-        ch_title = video['channel_title']
-        country = video['country']
-        num_days = video['num_days']
-        info_video = "{0:^100}{1:^25}{2:^15}{3:^15}".format(title, ch_title, country, num_days)
-        print(info_video)
+    print('El video mas trending en la categoria ' + category.title() + ":")
+    primera_linea = "{0:^100}{1:^25}{2:^15}{3:^15}".format('Title','Channel Title','Pais','Numero de dias')
+    print(primera_linea)
+    video = most_trending
+    title = video['title']
+    ch_title = video['channel_title']
+    country = video['country']
+    num_days = video['num_days']
+    info_video = "{0:^100}{1:^25}{2:^15}{3:^15}".format(title, ch_title, country, num_days)
+    print(info_video)
             
 def print_most_trending_categories(most_trending, category):
     """
     Imprime el video más trending en una categoría específica. Muestra además su título, el canal
     que lo publicó, el id de la categoría y el número de días que ha sido trending
     """
-    size = lt.size(most_trending)
-    if size:
-        print('El video mas trending en la categoria ' + category.title() + ":")
-        primera_linea = "{0:^100}{1:^25}{2:^15}{3:^15}".format('Title','Channel Title','Category ID','Numero de dias')
-        print(primera_linea)
-        i = 0
-        video = lt.getElement(most_trending,i)
-        title = video['title']
-        ch_title = video['channel_title']
-        category_id = video['category_id']
-        num_days = video['num_days']
-        info_video = "{0:^100}{1:^25}{2:^15}{3:^15}".format(title, ch_title, category_id, num_days)
-        print(info_video)
+
+    
+    print('El video mas trending en la categoria ' + category.title() + ":")
+    primera_linea = "{0:^100}{1:^25}{2:^15}{3:^15}".format('Title','Channel Title','Category ID','Numero de dias')
+    print(primera_linea)
+    
+    video = most_trending
+    title = video['title']
+    ch_title = video['channel_title']
+    category_id = video['category_id']
+    info_video = "{0:^100}{1:^25}{2:^15}{3:^15}".format(title, ch_title, category_id)
+    print(info_video)
 
 def print_video_tags(tags_by_likes,num_videos,country,tag):
     """

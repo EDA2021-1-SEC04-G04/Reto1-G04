@@ -125,15 +125,14 @@ def look_for_most_trending(videos):
     videomasvisto  = None
     for x in range(0,lt.size(videos)):
         video = lt.getElement(videos,x)
-        if video['video id'] in sublist:
-            sublist[video['video id']] += 1
-            if sublist[video['video id']] > masvistas:
-                masvistas = sublist[video['video id']]
+        if video['video_id'] in sublist:
+            sublist[video['video_id']] += 1
+            if sublist[video['video_id']] > masvistas:
+                masvistas = sublist[video['video_id']]
                 videomasvisto = video
         else:
-            sublist[video['video id']] = 1
+            sublist[video['video_id']] = 1
 
-       
     return videomasvisto
 
 def look_for_tags(countries,tag):
