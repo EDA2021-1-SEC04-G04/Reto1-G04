@@ -164,19 +164,17 @@ def compareCountries(country1, country2):
         return -1
 
 def cmpByLikes(Video1,Video2):
-    return float(Video1['likes']) < float(Video2['likes']()
+    return float(Video1['likes']) < float(Video2['likes'])
     
 
 # Funciones de ordenamiento
 
-def sortVideosbyViews(catalog, ordenamiento, size):
+def sortVideosbyViews(catalog,ordenamiento,size):
     """
     Organiza todos los videos de una lista por número de views 
     y retorna una nueva lista organizada
     """
     sortedlist = lt.subList(catalog, 0, size)
-    sortedlist = sortedlist.copy()
-    start_time = time.process_time()
     if ordenamiento == 1:
         sublist = nsr.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 2:
@@ -187,9 +185,7 @@ def sortVideosbyViews(catalog, ordenamiento, size):
         sublist = qst.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 5:
         sublist = mst.sort(sortedlist, cmpVideosByViews)
-    stop_time = time.process_time()
-    elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sublist
+    return sublist
 
 def sort_videos_by_likes(catalog):
     """
@@ -197,7 +193,6 @@ def sort_videos_by_likes(catalog):
     y retorna una nueva lista organizada
     """
     sorted_list = lt.subList(catalog,1,lt.size(catalog))
-    sorted_list = sorted_list.copy()
     sublist = mst.sort(sorted_list,cmpByLikes)
     return sublist
 
