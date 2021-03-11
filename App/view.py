@@ -140,7 +140,7 @@ def printVideosMostViews(videos,country,num_countries,category):
         primera_linea = "{0:^13}{1:^100}{2:^25}{3:^25}{4:^15}{5:^10}{6:^10}".format('Trending Date','Title','Channel Title','Publish Time','Views','Likes','Dislikes')
         print(primera_linea)
         i = 1
-        while i < num_countries:
+        while i < num_countries and i <size:
             video = lt.getElement(videos,i)
             t_date = video['trending_date']
             title = video['title']
@@ -197,7 +197,7 @@ def print_video_tags(tags_by_likes,num_videos,country,tag):
         primera_linea = "{0:^100}{1:^25}{2:^25}{3:^15}{4:^10}{5:^10}{6:100}".format('Title','Channel Title','Publish Time','Views','Likes','Dislikes','tags')
         print(primera_linea)
         i = 0
-        while i < num_videos:
+        while i < num_videos and i < size :
             video = lt.getElement(tags_by_likes,i)
             tags= video['tags']
             title = video['title']
