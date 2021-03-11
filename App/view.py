@@ -165,8 +165,7 @@ def print_most_trending_country(most_trending, category):
     title = video['title']
     ch_title = video['channel_title']
     country = video['country']
-    num_days = video['num_days']
-    info_video = "{0:^100}{1:^25}{2:^15}{3:^15}".format(title, ch_title, country, num_days)
+    info_video = "{0:^100}{1:^25}{2:^15}".format(title, ch_title, country)
     print(info_video)
             
 def print_most_trending_categories(most_trending, category):
@@ -177,14 +176,14 @@ def print_most_trending_categories(most_trending, category):
 
     
     print('El video mas trending en la categoria ' + category.title() + ":")
-    primera_linea = "{0:^100}{1:^25}{2:^15}{3:^15}".format('Title','Channel Title','Category ID','Numero de dias')
+    primera_linea = "{0:^100}{1:^25}{2:^15}".format('Title','Channel Title','Category ID')
     print(primera_linea)
     
     video = most_trending
     title = video['title']
     ch_title = video['channel_title']
     category_id = video['category_id']
-    info_video = "{0:^100}{1:^25}{2:^15}{3:^15}".format(title, ch_title, category_id)
+    info_video = "{0:^100}{1:^25}{2:^15}".format(title, ch_title, category_id)
     print(info_video)
 
 def print_video_tags(tags_by_likes,num_videos,country,tag):
