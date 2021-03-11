@@ -54,7 +54,7 @@ def loadData(catalog,tipo):
     """
     controller.loadData(catalog,tipo)
 
-def views_country_category(catalog,country,num_countries,category):
+def views_country_category(catalog,country,num_countries,category,sort):
     """
     Cumple el requerimiento número 1 del reto buscando los videos 
     con más views en un país con una categoría dada. Imprime el 
@@ -62,7 +62,9 @@ def views_country_category(catalog,country,num_countries,category):
     """
     countries = controller.look_for_country(catalog,country)
     categories = controller.look_for_category(countries,category)
-    printVideosMostViews(categories,country,num_countries)
+    size = lt.size(categories)
+    lista_videos = controller.videos_by_views(categories,sort,size)
+    printVideosMostViews(lista_videos,country,num_countries,category)
     
 def trending_country(catalog, country):
     """
@@ -93,17 +95,17 @@ def likes_country_tag(num_videos,country,tag,catalog_videos):
     tags_by_likes = controller.videos_by_likes(tags)
     print_video_tags(tags_by_likes,num_videos,country,tag)
 
-def printVideosMostViews(videos,country,num_countries):
+def printVideosMostViews(videos,country,num_countries,category):
     """
     Imprime los n videos con más vistas especficando, su trending date,
     título, título del canal, tiempo de publicación, vistas likes y dislikes.
     """
     size = lt.size(videos)
     if size:
-        print(' Estos son los videos con más views en ' + country.title() + ":")
+        print(' Estos son los videos con más views en ' + country.title() + " para la categoría " + category + ":")
         primera_linea = "{0:^13}{1:^100}{2:^25}{3:^25}{4:^15}{5:^10}{6:^10}".format('Trending Date','Title','Channel Title','Publish Time','Views','Likes','Dislikes')
         print(primera_linea)
-        i = 0
+        i = 1
         while i < num_countries:
             video = lt.getElement(videos,i)
             t_date = video['trending_date']
@@ -201,13 +203,10 @@ while True:
         num_countries = int(input("Escriba en numeros la cantidad de videos que desea consultar: "))
         country = input("Escriba el país sobre el que desea hacer la consulta: ").lower()
         category = input("Ingrese la categoria que desea buscar: ")
-        size = lt.size(catalog['Videos'])
         #print("\nSeleccione el tipo de ordenamiento:\n-1 para insertion\n-2 para selection\n-3 para shellshort\n-4 para quickshort\n-5 para mergeshort")
         #sort = int(input("Ingrese su eleccion: "))
         sort = 5
-        lista_videos = controller.videos_by_views(catalog,sort,size)
-        print(lista_videos[1])
-        views_country_category(lista_videos[1],country,num_countries,category)
+        views_country_category(catalog['Videos'],country,num_countries,category,sort)
 
     elif int(inputs[0]) == 3:
         country = input("Ingrese el pais en el que desea buscar: ")
