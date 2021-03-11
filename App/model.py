@@ -153,10 +153,7 @@ def compareVideos(video1, video2):
         return -1
     
 def cmpVideosByViews(video1, video2):
-    if video1['views'] < video2['views']:
-        return True
-    else:
-        return False
+    return float(video1['views']) > float(video2['views'])
 
 def compareCountries(country1, country2):
     if country1 > country2:
@@ -167,10 +164,8 @@ def compareCountries(country1, country2):
         return -1
 
 def cmpByLikes(Video1,Video2):
-    if Video1['likes'] < Video2['likes']:
-        return True
-    else:
-        return False
+    return float(Video1['likes']) < float(Video2['likes']()
+    
 
 # Funciones de ordenamiento
 
@@ -179,21 +174,22 @@ def sortVideosbyViews(catalog, ordenamiento, size):
     Organiza todos los videos de una lista por número de views 
     y retorna una nueva lista organizada
     """
-    sortedlist = lt.subList(catalog,1,size)
+    sortedlist = lt.subList(catalog, 0, size)
+    sortedlist = sortedlist.copy()
     start_time = time.process_time()
     if ordenamiento == 1:
-        nsr.sort(sortedlist, cmpVideosByViews)
+        sublist = nsr.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 2:
-        stn.sort(sortedlist, cmpVideosByViews)
+        sublist = stn.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 3:
-        shr.sort(sortedlist, cmpVideosByViews)
+        sublist = shr.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 4:
-        qst.sort(sortedlist, cmpVideosByViews)
+        sublist = qst.sort(sortedlist, cmpVideosByViews)
     elif ordenamiento == 5:
-        mst.sort(sortedlist, cmpVideosByViews)
+        sublist = mst.sort(sortedlist, cmpVideosByViews)
     stop_time = time.process_time()
     elapsed_time_mseg = (stop_time - start_time)*1000
-    return elapsed_time_mseg, sortedlist
+    return elapsed_time_mseg, sublist
 
 def sort_videos_by_likes(catalog):
     """
@@ -201,8 +197,9 @@ def sort_videos_by_likes(catalog):
     y retorna una nueva lista organizada
     """
     sorted_list = lt.subList(catalog,1,lt.size(catalog))
-    mst.sort(sorted_list,cmpByLikes)
-    return sorted_list
+    sorted_list = sorted_list.copy()
+    sublist = mst.sort(sorted_list,cmpByLikes)
+    return sublist
 
 
 

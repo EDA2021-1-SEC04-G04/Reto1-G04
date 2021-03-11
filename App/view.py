@@ -206,7 +206,7 @@ while True:
         #sort = int(input("Ingrese su eleccion: "))
         sort = 5
         lista_videos = controller.videos_by_views(catalog,sort,size)
-        print(lista_videos[0])
+        print(lista_videos[1])
         views_country_category(lista_videos[1],country,num_countries,category)
 
     elif int(inputs[0]) == 3:
